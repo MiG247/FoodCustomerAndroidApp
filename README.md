@@ -1,7 +1,6 @@
 # SmartlockerApp
 
-
-# SSH Key for GIT
-\n https://help.github.com/articles/connecting-to-github-with-ssh/
+1. SSH Key for GIT
+[text link](https://help.github.com/articles/connecting-to-github-with-ssh/)
 
 
