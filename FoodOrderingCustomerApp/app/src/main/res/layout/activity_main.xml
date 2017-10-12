@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RadioGroup
+            android:id="@+id/rg_combo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <!-- combo 1 -->
+            <LinearLayout
+                android:id="@+id/ll_combo_1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginTop="3dp"
+                android:layout_weight="1"
+                android:background="#e7eef7">
+
+                <!-- RadioButton combo 1 -->
+                <RadioButton
+                    android:id="@+id/rb_combo_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:clickable="false" />
+                <!-- free space for server connection integration of button 1-->
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+                    <!-- pull request for calling price of combo 1 -->
+                    <TextView
+                        android:id="@+id/tv_money_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="RMB  ￥12"
+                        android:textColor="#151414"
+                        android:textSize="25sp" />
+                    <!-- description of the string of combo 1-->
+                    <TextView
+                        android:id="@+id/tv_description_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:padding="4dp"
+                        android:text="Combo 1:
+
+- tofu
+- rice
+- vegetables
+"
+                        android:textColor="#e4290c"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+                <!-- picture representation (combo 1) of the server in a standardized form (defined width and height) -->
+                <ImageView
+                    android:id="@+id/iv_show_pic_1"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="50dp"
+                    android:padding="10dp"
+                    android:src="@drawable/food1l" />
+
+
+            </LinearLayout>
+
+            <!-- combo 2 -->
+            <LinearLayout
+                android:id="@+id/ll_combo_2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginTop="3dp"
+                android:layout_weight="1"
+                android:background="#e7eef7">
+
+                <!-- RadioButton combo 2 -->
+                <RadioButton
+                    android:id="@+id/rb_combo_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:clickable="false" />
+                <!-- free space for server connection integration of combo 2-->
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+                    <!-- pull request for calling price of combo 2 -->
+                    <TextView
+                        android:id="@+id/tv_money_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="RMB  ￥18"
+                        android:textColor="#151414"
+                        android:textSize="25sp" />
+                    <!-- description -->
+                    <TextView
+                        android:id="@+id/tv_description_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:padding="4dp"
+                        android:text="Combo 2:
+
+- chicken
+- rice
+- vegetables"
+                        android:textColor="#e4290c"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+                <!-- picture representation (combo 2) of the server in a standardized form (defined width and height) -->
+                <ImageView
+                    android:id="@+id/iv_show_pic_2"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="50dp"
+                    android:padding="10dp"
+                    android:src="@drawable/food2l" />
+
+
+            </LinearLayout>
+
+            <!-- combo 3 -->
+            <LinearLayout
+                android:id="@+id/ll_combo_3"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginTop="3dp"
+                android:layout_weight="1"
+                android:background="#e7eef7">
+
+                <!-- RadioButton combo 3 -->
+                <RadioButton
+                    android:id="@+id/rb_combo_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:clickable="false" />
+                <!-- free space for server connection integration of button 3-->
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_money_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="RMB  ￥20"
+                        android:textColor="#151414"
+                        android:textSize="25sp" />
+                    <!-- description -->
+                    <!-- pull request for calling price of combo 3 -->
+                    <TextView
+                        android:id="@+id/tv_description_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:padding="4dp"
+                        android:text="Combo 3:
+
+- beef
+- rice
+- corn
+
+          "
+                        android:textColor="#e4290c"
+                        android:textSize="20sp" />
+
+
+                </LinearLayout>
+
+                <!-- picture representation (combo 3) of the server in a standardized form (defined width and height) -->
+                <ImageView
+                    android:id="@+id/iv_show_pic_3"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="50dp"
+                    android:padding="10dp"
+                    android:src="@drawable/food3l" />
+
+
+            </LinearLayout>
+        </RadioGroup>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="Please select your food"
+        android:textColor="#fff"
+        android:textSize="20sp" />
+
+
+</LinearLayout>
