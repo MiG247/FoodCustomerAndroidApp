@@ -24,6 +24,7 @@
                 android:layout_weight="1"
                 android:background="#e7eef7">
 
+                <!-- RadioButton combo 1 -->
                 <RadioButton
                     android:id="@+id/rb_combo_1"
                     android:layout_width="wrap_content"
@@ -31,6 +32,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="10dp"
                     android:clickable="false" />
+                <!-- free space for server connection integration of button 1-->
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -38,7 +40,7 @@
                     android:layout_marginLeft="50dp"
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
-                    <!-- show money -->
+                    <!-- pull request for calling price of combo 1 -->
                     <TextView
                         android:id="@+id/tv_money_1"
                         android:layout_width="wrap_content"
@@ -47,7 +49,7 @@
                         android:text="RMB  ￥12"
                         android:textColor="#151414"
                         android:textSize="25sp" />
-                    <!-- description -->
+                    <!-- description of the string of combo 1-->
                     <TextView
                         android:id="@+id/tv_description_1"
                         android:layout_width="match_parent"
@@ -64,6 +66,7 @@
                         android:textSize="20sp" />
                 </LinearLayout>
 
+                <!-- picture representation (combo 1) of the server in a standardized form (defined width and height) -->
                 <ImageView
                     android:id="@+id/iv_show_pic_1"
                     android:layout_width="140dp"
@@ -86,6 +89,7 @@
                 android:layout_weight="1"
                 android:background="#e7eef7">
 
+                <!-- RadioButton combo 2 -->
                 <RadioButton
                     android:id="@+id/rb_combo_2"
                     android:layout_width="wrap_content"
@@ -93,6 +97,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="10dp"
                     android:clickable="false" />
+                <!-- free space for server connection integration of combo 2-->
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -100,7 +105,7 @@
                     android:layout_marginLeft="50dp"
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
-                    <!-- show money -->
+                    <!-- pull request for calling price of combo 2 -->
                     <TextView
                         android:id="@+id/tv_money_2"
                         android:layout_width="wrap_content"
@@ -125,6 +130,7 @@
                         android:textSize="20sp" />
                 </LinearLayout>
 
+                <!-- picture representation (combo 2) of the server in a standardized form (defined width and height) -->
                 <ImageView
                     android:id="@+id/iv_show_pic_2"
                     android:layout_width="140dp"
@@ -148,6 +154,7 @@
                 android:layout_weight="1"
                 android:background="#e7eef7">
 
+                <!-- RadioButton combo 3 -->
                 <RadioButton
                     android:id="@+id/rb_combo_3"
                     android:layout_width="wrap_content"
@@ -155,6 +162,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="10dp"
                     android:clickable="false" />
+                <!-- free space for server connection integration of button 3-->
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -172,9 +180,8 @@
                         android:textColor="#151414"
                         android:textSize="25sp" />
                     <!-- description -->
-                    <!-- show money -->
+                    <!-- pull request for calling price of combo 3 -->
                     <TextView
-
                         android:id="@+id/tv_description_3"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -193,6 +200,7 @@
 
                 </LinearLayout>
 
+                <!-- picture representation (combo 3) of the server in a standardized form (defined width and height) -->
                 <ImageView
                     android:id="@+id/iv_show_pic_3"
                     android:layout_width="140dp"
