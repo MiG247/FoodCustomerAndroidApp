@@ -15,6 +15,9 @@
         android:text="Please schedule your  pick up time"
         android:textColor="#fff"
         android:textSize="20sp" />
+
+    <!--Food customer can schedule his food pick up time at the locker-->
+
     <RadioGroup android:id="@+id/rg_sel_time"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -106,6 +109,10 @@
         android:onClick="onClick"
         android:orientation="horizontal">
 
+    <!--Food customer confirms his food selection and
+    pick up time scheduling at the locker by clicking "confirm payment"
+    then a request to the defined payment provider should be sent in
+    the background-->
 
         <TextView
             android:id="@+id/tv_pay"
@@ -118,6 +125,8 @@
             android:text="confirm payment"
             android:textColor="#fff"
             android:textSize="30sp" />
+
+    <!--shows the value (in RMB) of the selected food by the customer -->
 
         <TextView
             android:layout_width="wrap_content"

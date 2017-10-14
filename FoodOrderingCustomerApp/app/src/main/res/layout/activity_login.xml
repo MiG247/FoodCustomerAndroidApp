@@ -22,6 +22,8 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
+    <!--login name (later data type string)-->
+
             <EditText
                 android:id="@+id/et_username"
                 android:layout_width="fill_parent"
@@ -33,6 +35,8 @@
                 android:background="@drawable/bg_edit_selected"
                 android:hint="Login name"
                 android:textColorHint="#000" />
+
+    <!--login password (later data type string)-->
 
             <EditText
                 android:id="@+id/et_userpwd"
@@ -54,6 +58,9 @@
             android:layout_height="40dip"
             android:layout_marginTop="10dip"
             android:gravity="center">
+
+            <!-- Login button which send user confirmation us of the
+            credentials to the server for login -->
 
             <Button
                 android:id="@+id/btn_login"
@@ -79,6 +86,11 @@
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+
+ <!--draft version of the "create account" buttons:
+ better solutions needed later -
+ integration of register and login on WeChat etc.-->
+
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -109,7 +121,7 @@
 
             </LinearLayout>
 
-
+  <!--draft version: lucky day software/business demo login -->
 
             <Button
                 android:layout_width="wrap_content"
@@ -124,8 +136,5 @@
         </RelativeLayout>
 
     </LinearLayout>
-
-
-
 
 </LinearLayout>

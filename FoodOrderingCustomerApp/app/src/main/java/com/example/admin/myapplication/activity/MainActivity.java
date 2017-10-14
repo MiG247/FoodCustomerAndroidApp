@@ -58,14 +58,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Log.i(TAG, "onRestart: reset the radioButton status");
     }
-
     private void initData() {
-        // require server to get the picture
-
+       /* free space for server connection integration:
+       server request to show the provided food portfolio */
     }
 
     private void initView() {
         rgCombo = (RadioGroup) findViewById(R.id.rg_combo);
+
+    /* for the lucky day demo software show the three defined combos
+    current development status: static -> not integrated a server database request
+    for showing the food which is storaged in the database*/
 
         /* Combo 1 */
         llCombo1 = (LinearLayout) findViewById(R.id.ll_combo_1);
@@ -88,15 +91,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         rbCombo3 = (RadioButton) findViewById(R.id.rb_combo_3);
         tvDescription3 = (TextView) findViewById(R.id.tv_description_3);
 
-        // set click enable
+        // set click enable (android internal transport mechanism
         llCombo1.setOnClickListener(this);
         llCombo2.setOnClickListener(this);
         llCombo3.setOnClickListener(this);
 
-
     }
 
     @Override
+
+    /*switch case for selecting food: current status static
+    later needed to be implemented：server and database request*/
+
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_combo_1:

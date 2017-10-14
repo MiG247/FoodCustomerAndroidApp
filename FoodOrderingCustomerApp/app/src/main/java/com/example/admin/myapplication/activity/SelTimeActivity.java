@@ -87,7 +87,7 @@ public class SelTimeActivity extends AppCompatActivity {
         tvPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // should connect to Wechat or AliPay
+                // should connect to WeChat or AliPay
             }
         });
     }

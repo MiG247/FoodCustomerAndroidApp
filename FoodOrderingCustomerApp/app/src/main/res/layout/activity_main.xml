@@ -71,8 +71,7 @@
                     android:id="@+id/iv_show_pic_1"
                     android:layout_width="140dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="50dp"
-                    android:padding="10dp"
+                    android:padding="20dp"
                     android:src="@drawable/food1l" />
 
 
@@ -135,8 +134,7 @@
                     android:id="@+id/iv_show_pic_2"
                     android:layout_width="140dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="50dp"
-                    android:padding="10dp"
+                    android:padding="20dp"
                     android:src="@drawable/food2l" />
 
 
@@ -205,8 +203,7 @@
                     android:id="@+id/iv_show_pic_3"
                     android:layout_width="140dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="50dp"
-                    android:padding="10dp"
+                   android:padding="20dp"
                     android:src="@drawable/food3l" />
 
 
