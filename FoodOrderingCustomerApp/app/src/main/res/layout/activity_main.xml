@@ -30,14 +30,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="10dp"
+                    android:layout_margin="10dp"
                     android:clickable="false" />
                 <!-- free space for server connection integration of button 1-->
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="50dp"
+                    android:layout_weight="1"
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
                     <!-- pull request for calling price of combo 1 -->
@@ -69,9 +69,9 @@
                 <!-- picture representation (combo 1) of the server in a standardized form (defined width and height) -->
                 <ImageView
                     android:id="@+id/iv_show_pic_1"
-                    android:layout_width="140dp"
+                    android:layout_width="120dp"
                     android:layout_height="match_parent"
-                    android:padding="20dp"
+                    android:padding="10dp"
                     android:src="@drawable/food1l" />
 
 
@@ -94,14 +94,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="10dp"
+                    android:layout_margin="10dp"
                     android:clickable="false" />
                 <!-- free space for server connection integration of combo 2-->
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="50dp"
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
                     <!-- pull request for calling price of combo 2 -->
@@ -132,9 +132,9 @@
                 <!-- picture representation (combo 2) of the server in a standardized form (defined width and height) -->
                 <ImageView
                     android:id="@+id/iv_show_pic_2"
-                    android:layout_width="140dp"
+                    android:layout_width="120dp"
                     android:layout_height="match_parent"
-                    android:padding="20dp"
+                    android:padding="10dp"
                     android:src="@drawable/food2l" />
 
 
@@ -158,14 +158,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="10dp"
+                    android:layout_margin="10dp"
                     android:clickable="false" />
                 <!-- free space for server connection integration of button 3-->
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="50dp"
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
 
@@ -201,9 +201,9 @@
                 <!-- picture representation (combo 3) of the server in a standardized form (defined width and height) -->
                 <ImageView
                     android:id="@+id/iv_show_pic_3"
-                    android:layout_width="140dp"
+                    android:layout_width="120dp"
                     android:layout_height="match_parent"
-                   android:padding="20dp"
+                   android:padding="10dp"
                     android:src="@drawable/food3l" />
 
 

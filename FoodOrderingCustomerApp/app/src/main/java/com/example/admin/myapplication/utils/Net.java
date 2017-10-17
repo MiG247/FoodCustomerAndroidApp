@@ -16,7 +16,7 @@ import okhttp3.Response;
 
 public class Net {
     private static Net instance;
-    private void Net(){}
+    private Net(){}
     public static final MediaType JSON
             = MediaType.parse("application/json; charset=utf-8");
     private OkHttpClient okHttpClient = new OkHttpClient();
