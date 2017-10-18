@@ -1,7 +1,6 @@
 package com.example.admin.myapplication.activity;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -13,7 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.admin.myapplication.AppConstant;
@@ -24,7 +22,6 @@ import com.example.admin.myapplication.utils.Net;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,18 +39,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView tvDescription1, tvDescription2, tvDescription3;
     private ImageView ivShowPic1, ivShowPic2, ivShowPic3;
 
+    private final int GET_DATA_SUCCESS = 1;
     /* arg */
     private int selectComboIndex = 0;
     private String TAG = "MainActivity";
     private ArrayList<TextView> comboMoneyViewList = new ArrayList<>();
     private ArrayList<TextView> comboDescriptionViewList = new ArrayList<>();
     private ArrayList<ImageView> comboShowPicViewList = new ArrayList<>();
-    private ArrayList<ComboBean> comboInformationList = new ArrayList<>();
-    private final int MSG_UPDATE_VIEW = 1;
+    private ArrayList<ComboBean> comboList = new ArrayList<>();
     private Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
-            if (msg.what == MSG_UPDATE_VIEW){
+            if (msg.what == GET_DATA_SUCCESS){
                 updateView();
             }
             return false;
@@ -62,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void updateView() {
         for (int i = 0; i < AppConstant.COMBO_NUMBER; i++){
-            ComboBean comboBean = comboInformationList.get(i);
+            ComboBean comboBean = comboList.get(i);
             comboMoneyViewList.get(i).setText("￥ " + comboBean.money);
             comboDescriptionViewList.get(i).setText("" + comboBean.description);
             Glide.with(this)
@@ -97,7 +94,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         requestServerToGetInformation();
     }
 
-
     /*
     * connect the server
     * */
@@ -113,7 +109,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onResponse(Call call, Response response) throws IOException {
                 // get the JSON from responses.
                 String jsonStr = response.body().string();
-                Log.i(TAG, "onResponse: connect success; the response json is :" + jsonStr);
                 parseJsonAndUpdateView(jsonStr.trim());
             }
         });
@@ -127,21 +122,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             for(int i = 0; i < comboArr.length(); i++){
                 JSONObject comboItemObj = comboArr.getJSONObject(i);
                 ComboBean comboBean = new ComboBean(comboItemObj);
-                comboInformationList.add(comboBean);
+                comboList.add(comboBean);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        if (comboInformationList.size() >= AppConstant.COMBO_NUMBER){
+        if (comboList.size() >= AppConstant.COMBO_NUMBER){
             // information main thread update view
-            handler.sendEmptyMessage(MSG_UPDATE_VIEW);
+            handler.sendEmptyMessage(GET_DATA_SUCCESS);
         }
     }
 
     private void initView() {
         rgCombo = (RadioGroup) findViewById(R.id.rg_combo);
-
     /* for the lucky day demo software show the three defined combos
     current development status: static -> not integrated a server database request
     for showing the food which is storaged in the database*/
@@ -186,11 +180,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    @Override
-
     /*switch case for selecting food: current status static
     later needed to be implemented：server and database request*/
-
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_combo_1:
@@ -209,23 +201,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // enter next activity
         Intent intent = new Intent(this, SelTimeActivity.class);
-        intent.putExtra(AppConstant.COMBO_TAG, selectComboIndex);
+        intent.putExtra(AppConstant.SEL_COMBO_NAME_TAG, comboList.get(selectComboIndex).name);
+        intent.putExtra(AppConstant.SEL_COMBO_MONEY_TAG, comboList.get(selectComboIndex).money);
         startActivity(intent);
-    }
-
-
-    private void setPicture(int comboIndex, Drawable pic){
-        switch (comboIndex){
-            case AppConstant.COMBO_1:
-                ivShowPic1.setImageDrawable(pic);
-                break;
-            case AppConstant.COMBO_2:
-                ivShowPic2.setImageDrawable(pic);
-                break;
-            case AppConstant.COMBO_3:
-                ivShowPic3.setImageDrawable(pic);
-                break;
-        }
     }
 
 }
