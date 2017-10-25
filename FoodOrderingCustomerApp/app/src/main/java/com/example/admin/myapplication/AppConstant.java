@@ -17,6 +17,6 @@ public class AppConstant {
     public static final int COMBO_3 = 2;
 
     // ---------------- Server
-    public static final String SERVER_URL = "http://192.168.124.130/combo.json";
-
+    public static final String SERVER_URL = "http://192.168.1.125:23014";
+    public static final String SERVER_COMBO_URL = SERVER_URL + "/combo";
 }

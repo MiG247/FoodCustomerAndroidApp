@@ -17,11 +17,19 @@ public class ComboBean {
     public ComboBean(){}
     public ComboBean(JSONObject comboItemObj){
         try {
+            /* //old api
             this.name = comboItemObj.getString("name");
             this.money = comboItemObj.getDouble("money");
             this.status = comboItemObj.getInt("status");
             this.description = comboItemObj.getString("description");
             this.picture = comboItemObj.getString("picture");
+            */
+            this.name = comboItemObj.getString("name");
+            this.money = comboItemObj.getDouble("price");
+
+
+            this.description = "Combo Name: " + name;
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

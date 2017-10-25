@@ -1,20 +1,27 @@
 package com.example.admin.myapplication.activity;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.admin.myapplication.AppConstant;
 import com.example.admin.myapplication.R;
 
 public class SelTimeActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final int PAY_FOR_ERROR = 1;
+    private static final int PAY_FOR_SUCCESS = 2;
     private int radioBtnIdList[] =
             {R.id.rb_0, R.id.rb_1, R.id.rb_2, R.id.rb_3, R.id.rb_4,
                     R.id.rb_5, R.id.rb_6, R.id.rb_7, R.id.rb_8, R.id.rb_9, R.id.rb_10,};
@@ -23,9 +30,48 @@ public class SelTimeActivity extends AppCompatActivity implements View.OnClickLi
     private TextView tvPay;
     private String TAG = "SelTimeActivity";
     private TextView tvShowMoney;
-    private double mComboMoney;
-    private String mComboName;
-    private Handler handler = new Handler();
+    public double mComboMoney;   // price
+    public String mComboName;     // comboName
+    private Handler handler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+            switch (msg.what){
+                case PAY_FOR_ERROR:
+                    break;
+                case PAY_FOR_SUCCESS:
+                    Toast.makeText(getApplicationContext(),
+                            "Pay for successful, please care about the notification.", Toast.LENGTH_LONG).show();
+                    sendPINViaNotification();
+                    finish();
+                    break;
+            }
+            return false;
+        }
+    });
+    private NotificationManager mNotificationManager;
+
+    private void sendPINViaNotification() {
+        if(mNotificationManager == null)
+            mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        NotificationCompat.InboxStyle style = new NotificationCompat.InboxStyle();
+        style.setBigContentTitle("PIN of pick up food");
+        style.addLine("You pick up food time is: ").
+                addLine("2017.10.24 10:15").
+                addLine("Thank you for you using our produce");
+
+        android.support.v4.app.NotificationCompat.Builder nb = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.icon_cart)   // must have small icon
+                .setContentTitle("PIN of pick up food")
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.logo))
+                .setContentInfo("STIEI")
+                .setTicker("scroll information text")
+                .setDefaults(Notification.DEFAULT_SOUND|Notification.DEFAULT_VIBRATE)  // sound and vibrate
+                .setOngoing(false)   // Forever show, can't remove by yourself.
+                .setStyle(style);
+
+        mNotificationManager.notify(0, nb.build());
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -100,15 +146,31 @@ public class SelTimeActivity extends AppCompatActivity implements View.OnClickLi
         tvPay.setOnClickListener(this);
     }
 
-    public void goToPay(int money, String time){
-
-    }
-
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.tv_pay){
             // when you click "go to pay"
-
+            int mBoxId = requireServerToPayFor(mComboMoney, "2017.10.24");
+            if(mBoxId > 0){   // if the box id is less than 0, it mean have error in request server.
+                handler.sendEmptyMessage(PAY_FOR_SUCCESS);
+            }
         }
+    }
+
+    /*
+    * Requesting the server with argument that have time and price, and if request success,
+    *     will return the id of the box where is pick up food.
+    * @arg money double
+    * @arg time String
+    * @return int, the combo number. If return -1, it mean have error at pay for.
+     */
+    private int requireServerToPayFor(double money, String time) {
+        if(false){  // if request server error, should send the message by handle
+            handler.sendEmptyMessage(PAY_FOR_ERROR);
+            return -1;
+        }
+
+        // if pay for is successful, return the combo number
+        return 1;
     }
 }

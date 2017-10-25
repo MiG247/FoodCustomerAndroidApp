@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.admin.myapplication.AppConstant;
@@ -62,9 +63,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             ComboBean comboBean = comboList.get(i);
             comboMoneyViewList.get(i).setText("￥ " + comboBean.money);
             comboDescriptionViewList.get(i).setText("" + comboBean.description);
-            Glide.with(this)
-                    .load(comboBean.picture)
-                    .into(comboShowPicViewList.get(i));
+            if(comboBean.picture != null){
+                Glide.with(this)
+                        .load(comboBean.picture)
+                        .into(comboShowPicViewList.get(i));
+
+            }
         }
     }
 
@@ -86,7 +90,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         rbCombo2.setChecked(false);
         rbCombo3.setChecked(false);
 
-        Log.i(TAG, "onRestart: reset the radioButton status");
     }
     private void initData() {
        /* free space for server connection integration:
@@ -100,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void requestServerToGetInformation() {
         Net net = Net.getInstance();
         Log.i(TAG, "requestServerToGetInformation: Start connect server");
-        net.get(AppConstant.SERVER_URL, new Callback() {
+        net.get(AppConstant.SERVER_COMBO_URL, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.i(TAG, "onFailure: connect error; " + e.getMessage());
@@ -109,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onResponse(Call call, Response response) throws IOException {
                 // get the JSON from responses.
                 String jsonStr = response.body().string();
+                Log.i(TAG, "onResponse: --------------------------------" + jsonStr);
                 parseJsonAndUpdateView(jsonStr.trim());
             }
         });
@@ -117,8 +121,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // This function run in child thread.
     private void parseJsonAndUpdateView(String json) {
         try {
-            JSONObject object = new JSONObject(json);
-            JSONArray comboArr = object.getJSONArray("combo");
+            //JSONObject object = new JSONObject(json);
+            //JSONArray comboArr = object.getJSONArray("combo");
+            JSONArray comboArr = new JSONArray(json);
+
             for(int i = 0; i < comboArr.length(); i++){
                 JSONObject comboItemObj = comboArr.getJSONObject(i);
                 ComboBean comboBean = new ComboBean(comboItemObj);
@@ -201,6 +207,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // enter next activity
         Intent intent = new Intent(this, SelTimeActivity.class);
+        if(comboList.size() < selectComboIndex+1){
+            Toast.makeText(this, "Network error, please restart app", Toast.LENGTH_SHORT).show();
+            onRestart();
+            return;
+        }
         intent.putExtra(AppConstant.SEL_COMBO_NAME_TAG, comboList.get(selectComboIndex).name);
         intent.putExtra(AppConstant.SEL_COMBO_MONEY_TAG, comboList.get(selectComboIndex).money);
         startActivity(intent);
