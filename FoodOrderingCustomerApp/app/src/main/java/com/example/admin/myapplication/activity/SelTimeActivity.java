@@ -13,19 +13,30 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.admin.myapplication.AppConstant;
 import com.example.admin.myapplication.R;
+import com.example.admin.myapplication.bean.ScheduleBean;
+import com.example.admin.myapplication.utils.Net;
+import com.example.admin.myapplication.view.ScheduleRadioButton;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.io.IOException;
+import java.util.ArrayList;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class SelTimeActivity extends AppCompatActivity implements View.OnClickListener {
-    private static final int PAY_FOR_ERROR = 1;
-    private static final int PAY_FOR_SUCCESS = 2;
-    private int radioBtnIdList[] =
-            {R.id.rb_0, R.id.rb_1, R.id.rb_2, R.id.rb_3, R.id.rb_4,
-                    R.id.rb_5, R.id.rb_6, R.id.rb_7, R.id.rb_8, R.id.rb_9, R.id.rb_10,};
-    private int timeScheduleRadioButtonIndex = 0;
+    private static final int PAY_FOR_ERROR     = 1;
+    private static final int PAY_FOR_SUCCESS   = 2;
+    private static final int UPDATE_VIEW       = 3;
+
+    private ArrayList<ScheduleBean> scheduleList = new ArrayList<>();
     private RadioGroup rgSelTime;
     private TextView tvPay;
     private String TAG = "SelTimeActivity";
@@ -36,6 +47,17 @@ public class SelTimeActivity extends AppCompatActivity implements View.OnClickLi
         @Override
         public boolean handleMessage(Message msg) {
             switch (msg.what){
+                case UPDATE_VIEW:
+                    for(int i = 0; i < scheduleList.size(); i++){
+                        ScheduleRadioButton button = new ScheduleRadioButton(getApplicationContext());
+                        ScheduleBean scheduleBean = scheduleList.get(i);
+                        button.setText("" + scheduleBean.pickup_time);
+                        if(scheduleBean.available == 0){
+                            button.setEnabled(false);
+                        }
+                        rgSelTime.addView(button);
+                    }
+                    break;
                 case PAY_FOR_ERROR:
                     break;
                 case PAY_FOR_SUCCESS:
@@ -49,6 +71,7 @@ public class SelTimeActivity extends AppCompatActivity implements View.OnClickLi
         }
     });
     private NotificationManager mNotificationManager;
+    private Net net;
 
     private void sendPINViaNotification() {
         if(mNotificationManager == null)
@@ -93,49 +116,58 @@ public class SelTimeActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void initData() {
+        this.net = Net.getInstance();
+
+        // show the price
         tvShowMoney.setText("RMB ￥" + mComboMoney);
+
+        // TODO get the schedule to show
+        getScheduleFromServer();
 
         // get user scheduled food pick up time
         rgSelTime.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, @IdRes int id) {
-                switch (id) {
-                    case R.id.rb_0:
-                        timeScheduleRadioButtonIndex = 0;
-                        break;
-                    case R.id.rb_1:
-                        timeScheduleRadioButtonIndex = 1;
-                        break;
-                    case R.id.rb_2:
-                        timeScheduleRadioButtonIndex = 2;
-                        break;
-                    case R.id.rb_3:
-                        timeScheduleRadioButtonIndex = 3;
-                        break;
-                    case R.id.rb_4:
-                        timeScheduleRadioButtonIndex = 4;
-                        break;
-                    case R.id.rb_5:
-                        timeScheduleRadioButtonIndex = 5;
-                        break;
-                    case R.id.rb_6:
-                        timeScheduleRadioButtonIndex = 6;
-                        break;
-                    case R.id.rb_7:
-                        timeScheduleRadioButtonIndex = 7;
-                        break;
-                    case R.id.rb_8:
-                        timeScheduleRadioButtonIndex = 8;
-                        break;
-                    case R.id.rb_9:
-                        timeScheduleRadioButtonIndex = 9;
-                        break;
-                    case R.id.rb_10:
-                        timeScheduleRadioButtonIndex = 10;
-                        break;
-                }
+
             }
         });
+    }
+
+
+    private void getScheduleFromServer() {
+        net.get(AppConstant.SERVER_SCHEDULE_URL, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.i(TAG, "onFailure: connect error; " + e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String jsonStr = response.body().string();
+                Log.i(TAG, "onResponse: --------------------------------" + jsonStr);
+                parseJsonAndUpdateView(jsonStr.trim());
+            }
+        });
+    }
+
+    private void parseJsonAndUpdateView(String json) {
+        try {
+            JSONArray scheduleArr = new JSONArray(json);
+
+            for(int i = 0; i < scheduleArr.length(); i++){
+                JSONObject scheduleItemObj = scheduleArr.getJSONObject(i);
+                ScheduleBean scheduleBean = new ScheduleBean(scheduleItemObj);
+                scheduleList.add(scheduleBean);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        // TODO parse finish, should update the view
+        if(scheduleList.size() > 0){
+            handler.sendEmptyMessage(UPDATE_VIEW);
+        }else{
+            Toast.makeText(this, "get data error, please try repeat.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void initView() {
@@ -150,7 +182,15 @@ public class SelTimeActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         if(v.getId() == R.id.tv_pay){
             // when you click "go to pay"
-            int mBoxId = requireServerToPayFor(mComboMoney, "2017.10.24");
+            if(rgSelTime.getCheckedRadioButtonId() <= 0){
+                Toast.makeText(this, "Please select a pickup time", Toast.LENGTH_LONG).show();
+                return;
+            }
+            // get the time of selected button via checked radio button
+            RadioButton checkBtn = findViewById(rgSelTime.getCheckedRadioButtonId());
+            int mBoxId = requireServerToPayFor(mComboMoney, (String)checkBtn.getText());
+
+            Log.i(TAG, "onClick: " + checkBtn.getText());
             if(mBoxId > 0){   // if the box id is less than 0, it mean have error in request server.
                 handler.sendEmptyMessage(PAY_FOR_SUCCESS);
             }

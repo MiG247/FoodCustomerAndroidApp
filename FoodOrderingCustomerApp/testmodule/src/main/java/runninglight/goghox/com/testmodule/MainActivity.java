@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Net net = Net.getInstance();
-        net.get("http://192.168.1.125:23014/combo", new Callback() {
+        net.get("http://192.168.1.125:23014/timeschedule", new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.i(TAG, "onFailure: " + e.getMessage());

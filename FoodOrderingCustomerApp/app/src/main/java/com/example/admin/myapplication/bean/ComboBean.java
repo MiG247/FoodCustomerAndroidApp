@@ -9,7 +9,9 @@ import org.json.JSONObject;
 
 public class ComboBean {
     public String name;
+    public int id;
     public double money;
+
     public int status;
     public String description;
     public String picture;
@@ -24,12 +26,11 @@ public class ComboBean {
             this.description = comboItemObj.getString("description");
             this.picture = comboItemObj.getString("picture");
             */
+            this.id = comboItemObj.getInt("id");
             this.name = comboItemObj.getString("name");
             this.money = comboItemObj.getDouble("price");
 
-
             this.description = "Combo Name: " + name;
-
         } catch (JSONException e) {
             e.printStackTrace();
         }

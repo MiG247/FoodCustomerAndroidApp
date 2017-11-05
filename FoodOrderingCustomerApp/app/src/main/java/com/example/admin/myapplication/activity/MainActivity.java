@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     });
 
     private void updateView() {
-        for (int i = 0; i < AppConstant.COMBO_NUMBER; i++){
+        for (int i = 0; i < comboList.size(); i++){
             ComboBean comboBean = comboList.get(i);
             comboMoneyViewList.get(i).setText("￥ " + comboBean.money);
             comboDescriptionViewList.get(i).setText("" + comboBean.description);
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             e.printStackTrace();
         }
 
-        if (comboList.size() >= AppConstant.COMBO_NUMBER){
+        if (comboList.size() >= 0){
             // information main thread update view
             handler.sendEmptyMessage(GET_DATA_SUCCESS);
         }
